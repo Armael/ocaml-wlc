@@ -1,0 +1,26 @@
+Name: ocaml-wlc
+Version: 0.1
+Synopsis: OCaml bindings for Wlc (https://github.com/Cloudef/wlc)
+Authors: Armaël Guéneau <armael@isomorphis.me>
+License: MIT
+
+OASISFormat: 0.4
+BuildTools: ocamlbuild
+Plugins: META (0.4), DevFiles (0.4)
+
+Library "wlc"
+  Path: src
+  Modules: Wlc
+  InternalModules: Prelude, Keysym, Wl
+  BuildDepends: ctypes, ctypes.foreign
+
+AlphaFeatures: ocamlbuild_more_args
+Document "wlc_api"
+  Type: ocamlbuild (0.4)
+  BuildTools: ocamldoc
+
+  Title: API reference for Wlc
+  XOCamlbuildPath: .
+  XOCamlbuildExtraArgs:
+    "-docflags '-colorize-code -short-functors -charset utf-8'"
+  XOCamlbuildLibraries: wlc

@@ -1,0 +1,12 @@
+# OASIS_START
+# DO NOT EDIT (digest: 73c464b182375e9cf137247225466581)
+version = "0.1"
+description = "OCaml bindings for Wlc (https://github.com/Cloudef/wlc)"
+requires = "ctypes ctypes.foreign"
+archive(byte) = "wlc.cma"
+archive(byte, plugin) = "wlc.cma"
+archive(native) = "wlc.cmxa"
+archive(native, plugin) = "wlc.cmxs"
+exists_if = "wlc.cma"
+# OASIS_STOP
+

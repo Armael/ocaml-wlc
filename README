@@ -1,0 +1,24 @@
+OCaml-WLC
+=========
+
+Experimental OCaml binding for Wlc (http://github.com/Cloudef/wlc).
+
+Implementation details
+----------------------
+
+- *_{view/space/...}_userdata functions are not bound. It could be done, but
+   there is no need to bloat the binding since we can have hashtables
+   {view/space/...} -> anything in OCaml.
+
+- wl_lists are not finely bound. Functions returning a wl_list* return the whole
+  contents as an OCaml list, and that's it. No handling of *_from_link,
+  etc. wl_lists suck and they'll may disappear frow Wlc (the C library) at some
+  point anyway.
+
+- some NULL pointers may not be handled (i.e. OCaml functions taking or
+  returning a `t` instead of a `option t`) probably causing a segfault in the
+  NULL case. Report it if it happens.
+
+- I tried to order the various functions in submodules, causing some renamings
+  for module dependencies reasons. Names of functions and variants is not
+  written in stone and can be discussed.
