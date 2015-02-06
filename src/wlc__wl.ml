@@ -1,6 +1,6 @@
 open Ctypes
 open Foreign
-open Prelude
+open Wlc__prelude
 
 let wl_lib = Dl.dlopen
   ~filename:"libwayland-server.so"

@@ -1,6 +1,8 @@
 open Ctypes
 open Foreign
-open Prelude
+open Wlc__prelude
+
+module Wl = Wlc__wl
 
 exception Failure
 
@@ -18,7 +20,7 @@ let opt_of_ptr ty p =
   if ptr_eq (coerce ty (ptr void) p) null then None
   else Some p
 
-module Keysym = Keysym
+module Keysym = Wlc__keysym
 
 let wlc_lib = Dl.dlopen
     ~filename:"libwlc.so"

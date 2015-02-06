@@ -1,7 +1,7 @@
 exception Failure
 
-(* See keysym.mli for the list of keysyms *)
-module Keysym : module type of struct include Keysym end
+(* See wlc__keysym.mli for the list of keysyms *)
+module Keysym : module type of struct include Wlc__keysym end
 
 type modifier =
   | Shift

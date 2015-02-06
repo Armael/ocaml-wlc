@@ -1,7 +1,7 @@
 # OASIS_START
-# DO NOT EDIT (digest: 3736ceabbe5aeeb5d7ab58e1aad6bcf3)
+# DO NOT EDIT (digest: ba88e7e76e35f445a731f0d0ce0014a0)
 Wlc
-Prelude
-Keysym
-Wl
+Wlc__prelude
+Wlc__keysym
+Wlc__wl
 # OASIS_STOP

@@ -11,7 +11,7 @@ Plugins: META (0.4), DevFiles (0.4)
 Library "wlc"
   Path: src
   Modules: Wlc
-  InternalModules: Prelude, Keysym, Wl
+  InternalModules: Wlc__prelude, Wlc__keysym, Wlc__wl
   BuildDepends: ctypes, ctypes.foreign
 
 AlphaFeatures: ocamlbuild_more_args
