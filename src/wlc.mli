@@ -12,7 +12,7 @@ type modifier =
   | Mod3
   | Logo
   | Mod5
-    
+
 type led =
   | Led_Num
   | Led_Caps
@@ -20,9 +20,9 @@ type led =
 
 type key_state = Key_State_Released | Key_State_Pressed
 type button_state = Button_State_Released | Button_State_Pressed
-    
+
 type scroll_axis_bit = Vertical | Horizontal
-                       
+
 type origin = {
   x : int;
   y : int;

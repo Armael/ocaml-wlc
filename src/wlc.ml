@@ -212,7 +212,7 @@ type geometry = {
 let geometry_of_c c_geo = {
   origin = c_geo |-> C.Geometry.origin |> origin_of_c;
   size = c_geo |-> C.Geometry.size |> size_of_c;
-} 
+}
 
 let c_of_geometry geo =
   let c_geo = make C.Geometry.geometry in
@@ -258,7 +258,7 @@ module Space = struct
   (* for internal use only *)
   let get_link = foreign ~from:wlc_lib "wlc_space_get_link"
       (t @-> returning Wl.wl_list)
-  
+
   (* for internal use only *)
   let from_link = foreign ~from:wlc_lib "wlc_space_from_link"
       (Wl.wl_list @-> returning t)
@@ -476,7 +476,7 @@ module View = struct
 
   let send_to_back = foreign ~from:wlc_lib "wlc_view_send_to_back"
       (t @-> returning void)
-    
+
   let bring_above = foreign ~from:wlc_lib "wlc_view_bring_above"
       (t @-> t @-> returning void)
 
@@ -615,7 +615,7 @@ module Interface = struct
           (funptr (Compositor.t @-> Space.t @-> returning void))
       let activated = field space "activated"
           (funptr (Compositor.t @-> Space.t @-> returning void))
-      let () = seal space      
+      let () = seal space
     end
 
     type interface
@@ -671,7 +671,7 @@ module Interface = struct
     setf c_iv C.Interface_View.switch_space iv.switch_space;
     setf c_iv C.Interface_View.request (!@ (c_of_ivr iv.request));
     addr c_iv
-  
+
   let view : view typ = view
       ~read:iv_of_c
       ~write:c_of_iv
@@ -781,7 +781,7 @@ module Interface = struct
       ~read:io_of_c
       ~write:c_of_io
       (ptr C.Interface_Output.output)
-  
+
   type space = {
     created    : Compositor.t -> Space.t -> bool;
     destroyed  : Compositor.t -> Space.t -> unit;
@@ -805,7 +805,7 @@ module Interface = struct
       ~read:is_of_c
       ~write:c_of_is
       (ptr C.Interface_Space.space)
-  
+
   type t = {
     view     : view;
     keyboard : keyboard;
@@ -821,7 +821,7 @@ module Interface = struct
     output = c_int |-> C.output |> io_of_c;
     space = c_int |-> C.space |> is_of_c;
   }
-  
+
   let c_of_t int =
     let c_int = make C.interface in
     setf c_int C.view (!@ (c_of_iv int.view));
@@ -830,7 +830,7 @@ module Interface = struct
     setf c_int C.output (!@ (c_of_io int.output));
     setf c_int C.space (!@ (c_of_is int.space));
     addr c_int
-      
+
   let t : t typ = Ctypes.view
       ~read:t_of_c
       ~write:c_of_t

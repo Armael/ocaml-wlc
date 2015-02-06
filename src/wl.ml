@@ -25,6 +25,6 @@ let ocaml_of_wl_list extract_elt l =
     if ptr_eq elt l then List.rev acc
     else aux ((extract_elt elt)::acc) (next elt)
   in
-  
+
   if ptr_eq (coerce wl_list (ptr void) l) null then []
   else aux [] (next l)
