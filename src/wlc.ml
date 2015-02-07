@@ -691,7 +691,7 @@ module Interface = struct
         let open Unsigned.UInt32 in
         f c v
           (of_int time) modifiers
-          (of_int key) sym
+          (of_int key) (of_int sym)
           st;
   }
 
@@ -702,7 +702,7 @@ module Interface = struct
          let open Unsigned.UInt32 in
          ik.key c v
            (to_int time) modifiers
-           (to_int key) sym
+           (to_int key) (to_int sym)
            st);
     addr c_ik
 

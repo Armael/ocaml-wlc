@@ -1,4 +1,4 @@
-type t = Unsigned.uint32
+type t = int
 
 val _VoidSymbol : t
 val _BackSpace : t
