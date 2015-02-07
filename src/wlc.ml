@@ -681,7 +681,7 @@ module Interface = struct
 
   type keyboard = {
     key : Compositor.t ->
-      View.t -> int -> modifiers -> int -> Keysym.t -> key_state -> bool;
+      View.t option -> int -> modifiers -> int -> Keysym.t -> key_state -> bool;
   }
 
   let ik_of_c c_ik = {
@@ -689,7 +689,7 @@ module Interface = struct
       let f = getf (!@ c_ik) C.Interface_Keyboard.key in
       fun c v time modifiers key sym st ->
         let open Unsigned.UInt32 in
-        f c v
+        f c (ptr_of_opt View.t v)
           (of_int time) modifiers
           (of_int key) (of_int sym)
           st;
@@ -700,7 +700,7 @@ module Interface = struct
     setf c_ik C.Interface_Keyboard.key
       (fun c v time modifiers key sym st ->
          let open Unsigned.UInt32 in
-         ik.key c v
+         ik.key c (opt_of_ptr View.t v)
            (to_int time) modifiers
            (to_int key) (to_int sym)
            st);
@@ -712,10 +712,11 @@ module Interface = struct
       (ptr C.Interface_Keyboard.keyboard)
 
   type pointer = {
-    button : Compositor.t -> View.t -> int -> modifiers -> int -> button_state -> bool;
-    scroll : Compositor.t -> View.t -> int -> modifiers -> scroll_axis_bit list ->
-      float * float -> bool;
-    motion : Compositor.t -> View.t -> int -> origin -> bool;
+    button : Compositor.t -> View.t option -> int -> modifiers -> int ->
+      button_state -> bool;
+    scroll : Compositor.t -> View.t option -> int -> modifiers ->
+      scroll_axis_bit list -> float * float -> bool;
+    motion : Compositor.t -> View.t option -> int -> origin -> bool;
   }
 
   let ip_of_c c_ip =
@@ -725,12 +726,13 @@ module Interface = struct
     let c_motion = getf (!@ c_ip) C.Interface_Pointer.motion in
     {
       button = (fun c v time modifiers button st ->
-        c_button c v (of_int time) modifiers (of_int button) st);
+        c_button c (ptr_of_opt View.t v)
+          (of_int time) modifiers (of_int button) st);
       scroll = (fun c v time modifiers axis (a, b) ->
         let amount = CArray.of_list double [a; b] |> CArray.start in
-        c_scroll c v (of_int time) modifiers axis amount);
+        c_scroll c (ptr_of_opt View.t v) (of_int time) modifiers axis amount);
       motion = (fun c v time origin ->
-        c_motion c v (of_int time) origin);
+        c_motion c (ptr_of_opt View.t v) (of_int time) origin);
     }
 
   let c_of_ip ip =
@@ -738,18 +740,19 @@ module Interface = struct
     let c_ip = make C.Interface_Pointer.pointer in
     setf c_ip C.Interface_Pointer.button
       (fun c v time modifiers button st ->
-         ip.button c v
+         ip.button c (opt_of_ptr View.t v)
            (to_int time) modifiers
            (to_int button)
            st);
     setf c_ip C.Interface_Pointer.scroll
       (fun c v time modifiers axis amount ->
          let arr = CArray.from_ptr amount 2 in
-         ip.scroll c v
+         ip.scroll c (opt_of_ptr View.t v)
            (to_int time) modifiers axis
            (CArray.get arr 0, CArray.get arr 1));
     setf c_ip C.Interface_Pointer.motion
-      (fun c v time origin -> ip.motion c v (to_int time) origin);
+      (fun c v time origin ->
+         ip.motion c (opt_of_ptr View.t v) (to_int time) origin);
     addr c_ip
 
   let pointer : pointer typ = Ctypes.view

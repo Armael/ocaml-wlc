@@ -143,18 +143,18 @@ module Interface : sig
 
   type keyboard = {
     key : Compositor.t ->
-      View.t -> int -> modifiers -> int -> Keysym.t -> key_state -> bool;
+      View.t option -> int -> modifiers -> int -> Keysym.t -> key_state -> bool;
   }
 
   type pointer = {
     button :
       Compositor.t ->
-      View.t -> int -> modifiers -> int -> button_state -> bool;
+      View.t option -> int -> modifiers -> int -> button_state -> bool;
     scroll :
       Compositor.t ->
-      View.t ->
+      View.t option ->
       int -> modifiers -> scroll_axis_bit list -> float * float -> bool;
-    motion : Compositor.t -> View.t -> int -> origin -> bool;
+    motion : Compositor.t -> View.t option -> int -> origin -> bool;
   }
 
   type output = {
