@@ -851,7 +851,7 @@ let init inter =
     (CArray.of_list string (Array.to_list Sys.argv) |> CArray.start)
   |> fun b -> if not b then raise Failure else ()
 
-let terminate () = foreign ~from:wlc_lib "wlc_terminate"
+let terminate = foreign ~from:wlc_lib "wlc_terminate"
     (void @-> returning void)
 
 let run = foreign ~from:wlc_lib "wlc_run"

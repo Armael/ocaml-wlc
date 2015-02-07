@@ -181,7 +181,7 @@ end
 
 (* May raise Failure *)
 val init : Interface.t -> unit
-val terminate : unit -> unit -> unit
+val terminate : unit -> unit
 val run : unit -> unit
 
 val log : string -> unit
