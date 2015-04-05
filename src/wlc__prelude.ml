@@ -12,9 +12,4 @@ let (&<) bits n =
 let some_if b x =
   if b then Some x else None
 
-let bool = view
-  ~read:(fun x -> x <> 0)
-  ~write:(fun b -> if b then 1 else 0)
-  int
-
 let ptr_eq p q = ptr_compare p q = 0
