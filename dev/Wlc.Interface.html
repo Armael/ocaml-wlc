@@ -59,7 +59,7 @@ An output got or lost focus.<br>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELToutput.resolution">resolution</span>&nbsp;: <code class="type"><a href="Wlc.Output.html#TYPEt">Wlc.Output.t</a> -> <a href="Wlc.html#TYPEsize">Wlc.size</a> -> <a href="Wlc.html#TYPEsize">Wlc.size</a> -> unit</code>;</code></td>
+<code><span id="TYPEELToutput.resolution">resolution</span>&nbsp;: <code class="type"><a href="Wlc.Output.html#TYPEt">Wlc.Output.t</a> -> <a href="Wlc.Geometry.Size.html#TYPEt">Wlc.Geometry.Size.t</a> -> <a href="Wlc.Geometry.Size.html#TYPEt">Wlc.Geometry.Size.t</a> -> unit</code>;</code></td>
 <td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
 An output resolution changed.<br>
 </div>
@@ -74,7 +74,7 @@ An output resolution changed.<br>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTview_request.geometry">geometry</span>&nbsp;: <code class="type"><a href="Wlc.View.html#TYPEt">Wlc.View.t</a> -> <a href="Wlc.html#TYPEgeometry">Wlc.geometry</a> -> unit</code>;</code></td>
+<code><span id="TYPEELTview_request.geometry">geometry</span>&nbsp;: <code class="type"><a href="Wlc.View.html#TYPEt">Wlc.View.t</a> -> <a href="Wlc.Geometry.html#TYPEt">Wlc.Geometry.t</a> -> unit</code>;</code></td>
 <td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
 Request to set a given geometry for a view. Apply using
         <code class="code"><span class="constructor">Wlc</span>.<span class="constructor">View</span>.set_geometry</code> to agree.<br>
@@ -188,7 +188,7 @@ A scroll event was triggered, the first argument indicates the focused view.<br>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpointer.motion">motion</span>&nbsp;: <code class="type"><a href="Wlc.View.html#TYPEt">Wlc.View.t</a> option -> int -> <a href="Wlc.html#TYPEorigin">Wlc.origin</a> -> bool</code>;</code></td>
+<code><span id="TYPEELTpointer.motion">motion</span>&nbsp;: <code class="type"><a href="Wlc.View.html#TYPEt">Wlc.View.t</a> option -> int -> <a href="Wlc.Geometry.Origin.html#TYPEt">Wlc.Geometry.Origin.t</a> -> bool</code>;</code></td>
 <td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
 A motion event was triggered, the first argument indicates the focused view.<br>
 </div>
@@ -203,7 +203,7 @@ A motion event was triggered, the first argument indicates the focused view.<br>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtouch.touch">touch</span>&nbsp;: <code class="type"><a href="Wlc.View.html#TYPEt">Wlc.View.t</a> option -><br>       int -> <a href="Wlc.html#TYPEmodifiers">Wlc.modifiers</a> -> <a href="Wlc.html#TYPEtouch_type">Wlc.touch_type</a> -> int -> <a href="Wlc.html#TYPEorigin">Wlc.origin</a> -> bool</code>;</code></td>
+<code><span id="TYPEELTtouch.touch">touch</span>&nbsp;: <code class="type"><a href="Wlc.View.html#TYPEt">Wlc.View.t</a> option -><br>       int -><br>       <a href="Wlc.html#TYPEmodifiers">Wlc.modifiers</a> -> <a href="Wlc.html#TYPEtouch_type">Wlc.touch_type</a> -> int -> <a href="Wlc.Geometry.Origin.html#TYPEt">Wlc.Geometry.Origin.t</a> -> bool</code>;</code></td>
 <td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
 A touch event was tiggered, the first argument indicates the focused view.<br>
 </div>

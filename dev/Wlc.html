@@ -112,6 +112,25 @@ Translation of the header &lt;xkbcommon/xkbcommon-keysyms.h&gt;.
 
 
 
+<pre><code><span id="TYPEmodifiers"><span class="keyword">type</span> <code class="type"></code>modifiers</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifiers.leds">leds</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEled">led</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifiers.mods">mods</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEmodifier">modifier</a> list</code>;</code></td>
+
+</tr></table>
+}
+
+
+
 <pre><code><span id="TYPEkey_state"><span class="keyword">type</span> <code class="type"></code>key_state</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -205,90 +224,7 @@ Translation of the header &lt;xkbcommon/xkbcommon-keysyms.h&gt;.
 
 
 
-<pre><code><span id="TYPEorigin"><span class="keyword">type</span> <code class="type"></code>origin</span> = {</code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTorigin.x">x</span>&nbsp;: <code class="type">int</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTorigin.y">y</span>&nbsp;: <code class="type">int</code>;</code></td>
-
-</tr></table>
-}
-
-
-
-<pre><code><span id="TYPEsize"><span class="keyword">type</span> <code class="type"></code>size</span> = {</code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsize.w">w</span>&nbsp;: <code class="type">int</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsize.h">h</span>&nbsp;: <code class="type">int</code>;</code></td>
-
-</tr></table>
-}
-
-
-
-<pre><code><span id="TYPEgeometry"><span class="keyword">type</span> <code class="type"></code>geometry</span> = {</code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgeometry.origin">origin</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEorigin">origin</a></code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgeometry.size">size</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEsize">size</a></code>;</code></td>
-
-</tr></table>
-}
-
-
-
-<pre><span id="VALorigin_zero"><span class="keyword">val</span> origin_zero</span> : <code class="type"><a href="Wlc.html#TYPEorigin">origin</a></code></pre>
-<pre><span id="VALsize_zero"><span class="keyword">val</span> size_zero</span> : <code class="type"><a href="Wlc.html#TYPEsize">size</a></code></pre>
-<pre><span id="VALgeometry_zero"><span class="keyword">val</span> geometry_zero</span> : <code class="type"><a href="Wlc.html#TYPEgeometry">geometry</a></code></pre>
-<pre><span id="VALorigin_min"><span class="keyword">val</span> origin_min</span> : <code class="type"><a href="Wlc.html#TYPEorigin">origin</a> -> <a href="Wlc.html#TYPEorigin">origin</a> -> <a href="Wlc.html#TYPEorigin">origin</a></code></pre>
-<pre><span id="VALorigin_max"><span class="keyword">val</span> origin_max</span> : <code class="type"><a href="Wlc.html#TYPEorigin">origin</a> -> <a href="Wlc.html#TYPEorigin">origin</a> -> <a href="Wlc.html#TYPEorigin">origin</a></code></pre>
-<pre><span id="VALsize_min"><span class="keyword">val</span> size_min</span> : <code class="type"><a href="Wlc.html#TYPEsize">size</a> -> <a href="Wlc.html#TYPEsize">size</a> -> <a href="Wlc.html#TYPEsize">size</a></code></pre>
-<pre><span id="VALsize_max"><span class="keyword">val</span> size_max</span> : <code class="type"><a href="Wlc.html#TYPEsize">size</a> -> <a href="Wlc.html#TYPEsize">size</a> -> <a href="Wlc.html#TYPEsize">size</a></code></pre>
-<pre><span id="VALgeometry_contains"><span class="keyword">val</span> geometry_contains</span> : <code class="type"><a href="Wlc.html#TYPEgeometry">geometry</a> -> <a href="Wlc.html#TYPEgeometry">geometry</a> -> bool</code></pre>
-<pre><code><span id="TYPEmodifiers"><span class="keyword">type</span> <code class="type"></code>modifiers</span> = {</code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTmodifiers.leds">leds</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEled">led</a> list</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTmodifiers.mods">mods</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEmodifier">modifier</a> list</code>;</code></td>
-
-</tr></table>
-}
-
-
-
+<pre><span class="keyword">module</span> <a href="Wlc.Geometry.html">Geometry</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.Geometry.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>
 <pre><span class="keyword">module</span> <a href="Wlc.Output.html">Output</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.Output.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>
 <pre><span class="keyword">module</span> <a href="Wlc.View.html">View</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.View.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>
 <pre><span class="keyword">module</span> <a href="Wlc.Interface.html">Interface</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.Interface.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>

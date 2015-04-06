@@ -14,10 +14,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Output</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;destroyed&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Output</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;focus&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Output</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;resolution&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Output</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.size&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.size&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;resolution&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Output</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Geometry</span>.<span class="constructor">Size</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Geometry</span>.<span class="constructor">Size</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;view_request&nbsp;=&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;geometry&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">View</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.geometry&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;geometry&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">View</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Geometry</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;state&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">View</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">View</span>.state_bit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;view&nbsp;=&nbsp;{<br>
@@ -40,12 +41,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">View</span>.t&nbsp;option&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Wlc</span>.modifiers&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.scroll_axis_bit&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;float&nbsp;*&nbsp;float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;motion&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">View</span>.t&nbsp;option&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.origin&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;motion&nbsp;:&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">View</span>.t&nbsp;option&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Geometry</span>.<span class="constructor">Origin</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;touch&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;touch&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">View</span>.t&nbsp;option&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.modifiers&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.touch_type&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.origin&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Wlc</span>.modifiers&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.touch_type&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Wlc</span>.<span class="constructor">Geometry</span>.<span class="constructor">Origin</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;compositor&nbsp;=&nbsp;{&nbsp;ready&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;{<br>
