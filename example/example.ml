@@ -30,24 +30,24 @@ let relayout (output: Output.t) =
 
 (* Handlers *)
 let output_created output =
-  Printf.printf "created output\n";
+  Printf.printf "created output (%Lu)\n" (Output.id output);
   true
 
 let output_destroyed output =
-  Printf.printf "destroyed output\n"
+  Printf.printf "destroyed output (%Lu)\n" (Output.id output)
 
 let output_resolution output size_from size_to =
   relayout output
 
 let view_created view =
-  Printf.printf "created view\n";
+  Printf.printf "created view (%Lu)\n" (View.id view);
   View.bring_to_front view;
   View.focus (Some view);
   relayout (View.get_output view);
   true
 
 let view_destroyed view =
-  Printf.printf "destroyed view\n";
+  Printf.printf "destroyed view (%Lu)\n" (View.id view);
   View.focus (get_topmost (View.get_output view) 0);
   relayout (View.get_output view)
 

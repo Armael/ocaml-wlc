@@ -77,6 +77,9 @@ type modifiers = {
 module Output : sig
   type t
 
+  (** Returns an integer identifier for this output. *)
+  val id : t -> int64
+
   (** Get the list of outputs. *)
   val all : unit -> t list
 
@@ -135,6 +138,9 @@ module View : sig
   type typ = type_bit list
 
   type t
+
+  (** Returns an integer identifier for this view. *)
+  val id : t -> int64
 
   (** Get all the views of an output, in stacking order. *)
   val all_of_output : Output.t -> t list

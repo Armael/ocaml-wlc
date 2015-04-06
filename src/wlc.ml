@@ -314,6 +314,9 @@ module Output = struct
   type t = handle
   let t = handle
 
+  let id output =
+    raw_address_of_ptr output |> Int64.of_nativeint
+
   let all () =
     let n_ptr = allocate size_t (Unsigned.Size_t.of_int 0) in
     let buf = foreign ~from:wlc_lib "wlc_get_outputs"
@@ -464,6 +467,9 @@ module View = struct
     ) zero typ
 
   let typ = view ~read:typ_of_c ~write:c_of_typ uint32_t
+
+  let id view =
+    raw_address_of_ptr view |> Int64.of_nativeint
 
   let all_of_output output =
     let n_ptr = allocate size_t (Unsigned.Size_t.of_int 0) in
