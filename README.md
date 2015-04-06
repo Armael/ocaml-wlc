@@ -2,6 +2,8 @@
 
 Experimental OCaml binding for Wlc (http://github.com/Cloudef/wlc).
 
+Documentation of ocaml-wlc can be found [here](http://armael.github.io/ocaml-wlc/dev/).
+
 ## How to build
 
 After installing [Wlc](http://github.com/Cloudef/wlc), run:
