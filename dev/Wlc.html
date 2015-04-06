@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Wlc" rel="Chapter" href="Wlc.html"><title>Wlc</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Wlc.html">Wlc</a></h1>
+
+<pre><span class="keyword">module</span> Wlc: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+Bindings to the Wayland Compositor Library.<br>
+</div>
+<hr width="100%">
+
+<pre><span id="EXCEPTIONFailure"><span class="keyword">exception</span> Failure</span></pre>
+
+<pre><span class="keyword">module</span> <a href="Wlc.Keysym.html">Keysym</a>: <code class="type">module type of struct include Wlc__keysym end</code></pre><div class="info">
+Translation of the header &lt;xkbcommon/xkbcommon-keysyms.h&gt;.
+</div>
+
+<pre><code><span id="TYPEmodifier"><span class="keyword">type</span> <code class="type"></code>modifier</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifier.Shift"><span class="constructor">Shift</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifier.Caps"><span class="constructor">Caps</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifier.Ctrl"><span class="constructor">Ctrl</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifier.Alt"><span class="constructor">Alt</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifier.Mod2"><span class="constructor">Mod2</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifier.Mod3"><span class="constructor">Mod3</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifier.Logo"><span class="constructor">Logo</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifier.Mod5"><span class="constructor">Mod5</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEled"><span class="keyword">type</span> <code class="type"></code>led</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTled.Led_Num"><span class="constructor">Led_Num</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTled.Led_Caps"><span class="constructor">Led_Caps</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTled.Led_Scroll"><span class="constructor">Led_Scroll</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEkey_state"><span class="keyword">type</span> <code class="type"></code>key_state</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTkey_state.Key_State_Released"><span class="constructor">Key_State_Released</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTkey_state.Key_State_Pressed"><span class="constructor">Key_State_Pressed</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEbutton_state"><span class="keyword">type</span> <code class="type"></code>button_state</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbutton_state.Button_State_Released"><span class="constructor">Button_State_Released</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbutton_state.Button_State_Pressed"><span class="constructor">Button_State_Pressed</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEscroll_axis_bit"><span class="keyword">type</span> <code class="type"></code>scroll_axis_bit</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscroll_axis_bit.Vertical"><span class="constructor">Vertical</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscroll_axis_bit.Horizontal"><span class="constructor">Horizontal</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEtouch_type"><span class="keyword">type</span> <code class="type"></code>touch_type</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtouch_type.Touch_Down"><span class="constructor">Touch_Down</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtouch_type.Touch_Up"><span class="constructor">Touch_Up</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtouch_type.Touch_Motion"><span class="constructor">Touch_Motion</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtouch_type.Touch_Frame"><span class="constructor">Touch_Frame</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtouch_type.Touch_Cancel"><span class="constructor">Touch_Cancel</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEorigin"><span class="keyword">type</span> <code class="type"></code>origin</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTorigin.x">x</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTorigin.y">y</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEsize"><span class="keyword">type</span> <code class="type"></code>size</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsize.w">w</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsize.h">h</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEgeometry"><span class="keyword">type</span> <code class="type"></code>geometry</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgeometry.origin">origin</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEorigin">origin</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgeometry.size">size</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEsize">size</a></code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALorigin_zero"><span class="keyword">val</span> origin_zero</span> : <code class="type"><a href="Wlc.html#TYPEorigin">origin</a></code></pre>
+<pre><span id="VALsize_zero"><span class="keyword">val</span> size_zero</span> : <code class="type"><a href="Wlc.html#TYPEsize">size</a></code></pre>
+<pre><span id="VALgeometry_zero"><span class="keyword">val</span> geometry_zero</span> : <code class="type"><a href="Wlc.html#TYPEgeometry">geometry</a></code></pre>
+<pre><span id="VALorigin_min"><span class="keyword">val</span> origin_min</span> : <code class="type"><a href="Wlc.html#TYPEorigin">origin</a> -> <a href="Wlc.html#TYPEorigin">origin</a> -> <a href="Wlc.html#TYPEorigin">origin</a></code></pre>
+<pre><span id="VALorigin_max"><span class="keyword">val</span> origin_max</span> : <code class="type"><a href="Wlc.html#TYPEorigin">origin</a> -> <a href="Wlc.html#TYPEorigin">origin</a> -> <a href="Wlc.html#TYPEorigin">origin</a></code></pre>
+<pre><span id="VALsize_min"><span class="keyword">val</span> size_min</span> : <code class="type"><a href="Wlc.html#TYPEsize">size</a> -> <a href="Wlc.html#TYPEsize">size</a> -> <a href="Wlc.html#TYPEsize">size</a></code></pre>
+<pre><span id="VALsize_max"><span class="keyword">val</span> size_max</span> : <code class="type"><a href="Wlc.html#TYPEsize">size</a> -> <a href="Wlc.html#TYPEsize">size</a> -> <a href="Wlc.html#TYPEsize">size</a></code></pre>
+<pre><span id="VALgeometry_contains"><span class="keyword">val</span> geometry_contains</span> : <code class="type"><a href="Wlc.html#TYPEgeometry">geometry</a> -> <a href="Wlc.html#TYPEgeometry">geometry</a> -> bool</code></pre>
+<pre><code><span id="TYPEmodifiers"><span class="keyword">type</span> <code class="type"></code>modifiers</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifiers.leds">leds</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEled">led</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmodifiers.mods">mods</span>&nbsp;: <code class="type"><a href="Wlc.html#TYPEmodifier">modifier</a> list</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span class="keyword">module</span> <a href="Wlc.Output.html">Output</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.Output.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>
+<pre><span class="keyword">module</span> <a href="Wlc.View.html">View</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.View.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>
+<pre><span class="keyword">module</span> <a href="Wlc.Interface.html">Interface</a>: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.Interface.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type"><a href="Wlc.Interface.html#TYPEt">Interface.t</a> -> unit</code></pre><div class="info ">
+Initialize wlc. May raise <code class="code"><span class="constructor">Failure</span></code>.<br>
+</div>
+
+<pre><span id="VALterminate"><span class="keyword">val</span> terminate</span> : <code class="type">unit -> unit</code></pre><div class="info ">
+Terminate wlc.<br>
+</div>
+
+<pre><span id="VALrun"><span class="keyword">val</span> run</span> : <code class="type">unit -> unit</code></pre><div class="info ">
+Run the event loop.<br>
+</div>
+
+<pre><span id="VALlog"><span class="keyword">val</span> log</span> : <code class="type">string -> unit</code></pre><div class="info ">
+Log a message.<br>
+</div>
+</body></html>

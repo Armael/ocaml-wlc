@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Wlc.Output.html">
+<link rel="next" href="Wlc.Interface.html">
+<link rel="Up" href="Wlc.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Wlc" rel="Chapter" href="Wlc.html"><title>Wlc.View</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Wlc.Output.html" title="Wlc.Output">Previous</a>
+&nbsp;<a class="up" href="Wlc.html" title="Wlc">Up</a>
+&nbsp;<a class="post" href="Wlc.Interface.html" title="Wlc.Interface">Next</a>
+</div>
+<h1>Module <a href="type_Wlc.View.html">Wlc.View</a></h1>
+
+<pre><span class="keyword">module</span> View: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.View.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+
+<pre><code><span id="TYPEstate_bit"><span class="keyword">type</span> <code class="type"></code>state_bit</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate_bit.Maximized"><span class="constructor">Maximized</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate_bit.Fullscreen"><span class="constructor">Fullscreen</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate_bit.Resizing"><span class="constructor">Resizing</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate_bit.Moving"><span class="constructor">Moving</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate_bit.Activated"><span class="constructor">Activated</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="TYPEstate"><span class="keyword">type</span> <code class="type"></code>state</span> = <code class="type"><a href="Wlc.View.html#TYPEstate_bit">state_bit</a> list</code> </pre>
+
+
+<pre><code><span id="TYPEtype_bit"><span class="keyword">type</span> <code class="type"></code>type_bit</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtype_bit.Override_Redirect"><span class="constructor">Override_Redirect</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtype_bit.Unmanaged"><span class="constructor">Unmanaged</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtype_bit.Splash"><span class="constructor">Splash</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtype_bit.Modal"><span class="constructor">Modal</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtype_bit.Popup"><span class="constructor">Popup</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="TYPEtyp"><span class="keyword">type</span> <code class="type"></code>typ</span> = <code class="type"><a href="Wlc.View.html#TYPEtype_bit">type_bit</a> list</code> </pre>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><span id="VALall_of_output"><span class="keyword">val</span> all_of_output</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">Wlc.Output.t</a> -> <a href="Wlc.View.html#TYPEt">t</a> list</code></pre><div class="info ">
+Get all the views of an output, in stacking order.<br>
+</div>
+
+<pre><span id="VALset_all_of_output"><span class="keyword">val</span> set_all_of_output</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">Wlc.Output.t</a> -> <a href="Wlc.View.html#TYPEt">t</a> list -> bool</code></pre><div class="info ">
+Set the views of an output, also stacking order. 
+      Useful to change the stack order or move many views at once.<br>
+</div>
+
+<pre><span id="VALfocus"><span class="keyword">val</span> focus</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> option -> unit</code></pre><div class="info ">
+Change the view focus.<br>
+</div>
+
+<pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+Close a view.<br>
+</div>
+
+<pre><span id="VALget_output"><span class="keyword">val</span> get_output</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.Output.html#TYPEt">Wlc.Output.t</a></code></pre><div class="info ">
+Get the current output for this view.<br>
+</div>
+
+<pre><span id="VALset_output"><span class="keyword">val</span> set_output</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.Output.html#TYPEt">Wlc.Output.t</a> -> unit</code></pre><div class="info ">
+Set the output for this view. Alternatively you can use
+      <code class="code"><span class="constructor">Wlc</span>.<span class="constructor">View</span>.set_all_of_output</code>.<br>
+</div>
+
+<pre><span id="VALsend_to_back"><span class="keyword">val</span> send_to_back</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+Send behind everything.<br>
+</div>
+
+<pre><span id="VALsend_below"><span class="keyword">val</span> send_below</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.View.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+Send below another view.<br>
+</div>
+
+<pre><span id="VALbring_above"><span class="keyword">val</span> bring_above</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.View.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+Send above another view.<br>
+</div>
+
+<pre><span id="VALbring_to_front"><span class="keyword">val</span> bring_to_front</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+Bring in front of everything.<br>
+</div>
+
+<pre><span id="VALget_mask"><span class="keyword">val</span> get_mask</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> int list</code></pre><div class="info ">
+Get the list of spaces where this view appears.
+<p>
+
+      The current implementation of Wlc only handles 32 spaces per
+      output.<br>
+</div>
+
+<pre><span id="VALset_mask"><span class="keyword">val</span> set_mask</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> int list -> unit</code></pre><div class="info ">
+Set the list of spaces where the view appears.<br>
+</div>
+
+<pre><span id="VALget_geometry"><span class="keyword">val</span> get_geometry</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.html#TYPEgeometry">Wlc.geometry</a></code></pre><div class="info ">
+Get the current geometry.<br>
+</div>
+
+<pre><span id="VALset_geometry"><span class="keyword">val</span> set_geometry</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.html#TYPEgeometry">Wlc.geometry</a> -> unit</code></pre><div class="info ">
+Set the geometry.<br>
+</div>
+
+<pre><span id="VALget_type"><span class="keyword">val</span> get_type</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.View.html#TYPEtyp">typ</a></code></pre><div class="info ">
+Get the type bitfield.<br>
+</div>
+
+<pre><span id="VALset_type"><span class="keyword">val</span> set_type</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.View.html#TYPEtype_bit">type_bit</a> -> bool -> unit</code></pre><div class="info ">
+Set a type bit. The boolean argument indicates whether it is set
+      or not.<br>
+</div>
+
+<pre><span id="VALget_state"><span class="keyword">val</span> get_state</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.View.html#TYPEstate">state</a></code></pre><div class="info ">
+Get the current state bitfield.<br>
+</div>
+
+<pre><span id="VALset_state"><span class="keyword">val</span> set_state</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.View.html#TYPEstate_bit">state_bit</a> -> bool -> unit</code></pre><div class="info ">
+Set a state bit. The boolean argument idicates whether it is set
+      or not.<br>
+</div>
+
+<pre><span id="VALget_parent"><span class="keyword">val</span> get_parent</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.View.html#TYPEt">t</a> option</code></pre><div class="info ">
+Get the parent view, if any.<br>
+</div>
+
+<pre><span id="VALset_parent"><span class="keyword">val</span> set_parent</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> <a href="Wlc.View.html#TYPEt">t</a> option -> unit</code></pre><div class="info ">
+Set the parent view.<br>
+</div>
+
+<pre><span id="VALget_title"><span class="keyword">val</span> get_title</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+Get the view title.<br>
+</div>
+
+<pre><span id="VALset_title"><span class="keyword">val</span> set_title</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> string -> unit</code></pre><div class="info ">
+Set the view title. May raise <code class="code"><span class="constructor">Failure</span></code>.<br>
+</div>
+
+<pre><span id="VALget_class"><span class="keyword">val</span> get_class</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> string option</code></pre><div class="info ">
+Get the view class (shell-surface only).<br>
+</div>
+
+<pre><span id="VALset_class"><span class="keyword">val</span> set_class</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> string option -> unit</code></pre><div class="info ">
+Set the view class (shell-surface only). May raise <code class="code"><span class="constructor">Failure</span></code>.<br>
+</div>
+
+<pre><span id="VALget_app_id"><span class="keyword">val</span> get_app_id</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> string option</code></pre><div class="info ">
+Get the app id (xdg-surface only).<br>
+</div>
+
+<pre><span id="VALset_app_id"><span class="keyword">val</span> set_app_id</span> : <code class="type"><a href="Wlc.View.html#TYPEt">t</a> -> string option -> unit</code></pre><div class="info ">
+Set the app id (xdg-surface only).  May raise <code class="code"><span class="constructor">Failure</span></code>.<br>
+</div>
+</body></html>

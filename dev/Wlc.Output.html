@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Wlc.Keysym.html">
+<link rel="next" href="Wlc.View.html">
+<link rel="Up" href="Wlc.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Wlc" rel="Chapter" href="Wlc.html"><title>Wlc.Output</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Wlc.Keysym.html" title="Wlc.Keysym">Previous</a>
+&nbsp;<a class="up" href="Wlc.html" title="Wlc">Up</a>
+&nbsp;<a class="post" href="Wlc.View.html" title="Wlc.View">Next</a>
+</div>
+<h1>Module <a href="type_Wlc.Output.html">Wlc.Output</a></h1>
+
+<pre><span class="keyword">module</span> Output: <code class="code"><span class="keyword">sig</span></code> <a href="Wlc.Output.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><span id="VALall"><span class="keyword">val</span> all</span> : <code class="type">unit -> <a href="Wlc.Output.html#TYPEt">t</a> list</code></pre><div class="info ">
+Get the list of outputs.<br>
+</div>
+
+<pre><span id="VALget_focused"><span class="keyword">val</span> get_focused</span> : <code class="type">unit -> <a href="Wlc.Output.html#TYPEt">t</a></code></pre><div class="info ">
+Get the currently focused output.<br>
+</div>
+
+<pre><span id="VALget_sleep"><span class="keyword">val</span> get_sleep</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+Get sleep state.<br>
+</div>
+
+<pre><span id="VALset_sleep"><span class="keyword">val</span> set_sleep</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">t</a> -> bool -> unit</code></pre><div class="info ">
+Wake up / sleep.<br>
+</div>
+
+<pre><span id="VALget_resolution"><span class="keyword">val</span> get_resolution</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">t</a> -> <a href="Wlc.html#TYPEsize">Wlc.size</a></code></pre><div class="info ">
+Get output resolution.<br>
+</div>
+
+<pre><span id="VALset_resolution"><span class="keyword">val</span> set_resolution</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">t</a> -> <a href="Wlc.html#TYPEsize">Wlc.size</a> -> unit</code></pre><div class="info ">
+Set output resolution.<br>
+</div>
+
+<pre><span id="VALget_mask"><span class="keyword">val</span> get_mask</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">t</a> -> int list</code></pre><div class="info ">
+Get the list of currently visible spaces for this output.
+<p>
+
+      The current implementation of Wlc only handles 32 spaces per
+      output.<br>
+</div>
+
+<pre><span id="VALset_mask"><span class="keyword">val</span> set_mask</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">t</a> -> int list -> unit</code></pre><div class="info ">
+Set the currently visible spaces for this output.<br>
+</div>
+
+<pre><span id="VALget_pixels"><span class="keyword">val</span> get_pixels</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">t</a> -><br>       ((int, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array2.t -><br>        unit) -><br>       unit</code></pre><div class="info ">
+Get the pixels of the screen region corresponding to the output.<br>
+</div>
+
+<pre><span id="VALfocus"><span class="keyword">val</span> focus</span> : <code class="type"><a href="Wlc.Output.html#TYPEt">t</a> option -> unit</code></pre><div class="info ">
+Change the output focus.<br>
+</div>
+</body></html>
