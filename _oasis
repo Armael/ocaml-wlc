@@ -20,6 +20,7 @@ Document "wlc_api"
   BuildTools: ocamldoc
 
   Title: API reference for Wlc
+  PostCommand: cp doc/style.css wlc_api.docdir/
   XOCamlbuildPath: .
   XOCamlbuildExtraArgs:
     "-docflags '-colorize-code -short-functors -charset utf-8'"
