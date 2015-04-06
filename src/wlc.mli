@@ -290,6 +290,10 @@ module Interface : sig
     pointer  : pointer;
     touch    : touch;
   }
+
+  (** A dummy interface, where each handler does nothing. Useful for
+      picking default callbacks. *)
+  val dummy : t
 end
 
 (** Initialize wlc. May raise [Failure]. *)

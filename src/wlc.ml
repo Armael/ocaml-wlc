@@ -884,6 +884,40 @@ module Interface = struct
       ~read:t_of_c
       ~write:c_of_t
       (ptr C.interface)
+
+  let dummy = {
+    output = {
+      created = (fun _ -> true);
+      destroyed = (fun _ -> ());
+      focus = (fun _ _ -> ());
+      resolution = (fun _ _ _ -> ());
+    };
+
+    view = {
+      created = (fun _ -> true);
+      destroyed = (fun _ -> ());
+      focus = (fun _ _ -> ());
+      move_to_output = (fun _ _ _ -> ());
+      request = {
+        geometry = (fun _ _ -> ());
+        state = (fun _ _ _ -> ());
+      };
+    };
+
+    keyboard = {
+      key = (fun _ _ _ _ _ _ -> true);
+    };
+
+    pointer = {
+      button = (fun _ _ _ _ _ -> true);
+      scroll = (fun _ _ _ _ _ -> true);
+      motion = (fun _ _ _ -> true);
+    };
+
+    touch = {
+      touch = (fun _ _ _ _ _ _ -> true);
+    };
+  }
 end
 
 
