@@ -27,30 +27,6 @@ let wlc_lib = Dl.dlopen
     ~flags:[Dl.RTLD_NOW; Dl.RTLD_GLOBAL]
 
 module C = struct
-  module Origin = struct
-    type origin
-    let origin : origin structure typ = structure "wlc_origin"
-    let x = field origin "x" int32_t
-    let y = field origin "y" int32_t
-    let () = seal origin
-  end
-
-  module Size = struct
-    type size
-    let size : size structure typ = structure "wlc_size"
-    let w = field size "w" uint32_t
-    let h = field size "h" uint32_t
-    let () = seal size
-  end
-
-  module Geometry = struct
-    type geometry
-    let geometry : geometry structure typ = structure "wlc_geometry"
-    let origin = field geometry "origin" Origin.origin
-    let size = field geometry "size" Size.size
-    let () = seal geometry
-  end
-
   module Modifiers = struct
     type modifiers
     let modifiers : modifiers structure typ = structure "wlc_modifiers"
@@ -118,6 +94,27 @@ let c_of_led led =
   ) zero led
 
 let led_list = view ~read:led_of_c ~write:c_of_led uint32_t
+
+type modifiers = {
+  leds : led list;
+  mods : modifier list;
+}
+
+let modifiers_of_c c_mods = {
+  leds = getf (!@ c_mods) C.Modifiers.leds |> led_of_c;
+  mods = getf (!@ c_mods) C.Modifiers.mods |> modifier_of_c;
+}
+
+let c_of_modifiers mods =
+  let c_mods = make C.Modifiers.modifiers in
+  setf c_mods C.Modifiers.leds (c_of_led mods.leds);
+  setf c_mods C.Modifiers.mods (c_of_modifier mods.mods);
+  addr c_mods
+
+let modifiers : modifiers typ = view
+    ~read:modifiers_of_c
+    ~write:c_of_modifiers
+    (ptr C.Modifiers.modifiers)
 
 type key_state =
   | Key_State_Released
@@ -190,122 +187,133 @@ let c_of_touch_type bit =
 
 let touch_type = view ~read:touch_type_of_c ~write:c_of_touch_type uint32_t
 
-type origin = {
-  x : int;
-  y : int;
-}
+module Geometry = struct
+  module C = struct
+    module Origin = struct
+      type origin
+      let origin : origin structure typ = structure "wlc_origin"
+      let x = field origin "x" int32_t
+      let y = field origin "y" int32_t
+      let () = seal origin
+    end
 
-let origin_of_c c_origin = {
-  x = getf (!@ c_origin) C.Origin.x |> Int32.to_int;
-  y = getf (!@ c_origin) C.Origin.y |> Int32.to_int;
-}
+    module Size = struct
+      type size
+      let size : size structure typ = structure "wlc_size"
+      let w = field size "w" uint32_t
+      let h = field size "h" uint32_t
+      let () = seal size
+    end
 
-let c_of_origin origin =
-  let c_origin = make C.Origin.origin in
-  setf c_origin C.Origin.x (Int32.of_int origin.x);
-  setf c_origin C.Origin.y (Int32.of_int origin.y);
-  addr c_origin
+    module Geometry = struct
+      type geometry
+      let geometry : geometry structure typ = structure "wlc_geometry"
+      let origin = field geometry "origin" Origin.origin
+      let size = field geometry "size" Size.size
+      let () = seal geometry
+    end
+  end
 
-let origin : origin typ = view
-    ~read:origin_of_c
-    ~write:c_of_origin
-    (ptr C.Origin.origin)
+  module Origin = struct
+    type t = {
+      x : int;
+      y : int;
+    }
 
-type size = {
-  w : int;
-  h : int;
-}
+    let t_of_c c_t = {
+      x = getf (!@ c_t) C.Origin.x |> Int32.to_int;
+      y = getf (!@ c_t) C.Origin.y |> Int32.to_int;
+    }
 
-let size_of_c c_size = {
-  w = getf (!@ c_size) C.Size.w |> Unsigned.UInt32.to_int;
-  h = getf (!@ c_size) C.Size.h |> Unsigned.UInt32.to_int;
-}
+    let c_of_t t =
+      let c_t = make C.Origin.origin in
+      setf c_t C.Origin.x (Int32.of_int t.x);
+      setf c_t C.Origin.y (Int32.of_int t.y);
+      addr c_t
 
-let c_of_size size =
-  let c_size = make C.Size.size in
-  setf c_size C.Size.w (Unsigned.UInt32.of_int size.w);
-  setf c_size C.Size.h (Unsigned.UInt32.of_int size.h);
-  addr c_size
+    let t : t typ = view
+        ~read:t_of_c
+        ~write:c_of_t
+        (ptr C.Origin.origin)
 
-let size : size typ = view
-    ~read:size_of_c
-    ~write:c_of_size
+    let zero = { x = 0; y = 0 }
+
+    let min a b = {
+      x = min a.x b.x;
+      y = min a.y b.y;
+    }
+    
+    let max a b = {
+      x = max a.x b.x;
+      y = max a.y b.y;
+    }
+  end
+
+  module Size = struct
+    type t = {
+      w : int;
+      h : int;
+    }
+
+    let t_of_c c_t = {
+      w = getf (!@ c_t) C.Size.w |> Unsigned.UInt32.to_int;
+      h = getf (!@ c_t) C.Size.h |> Unsigned.UInt32.to_int;
+    }
+
+    let c_of_t t =
+      let c_t = make C.Size.size in
+      setf c_t C.Size.w (Unsigned.UInt32.of_int t.w);
+      setf c_t C.Size.h (Unsigned.UInt32.of_int t.h);
+      addr c_t
+
+    let t : t typ = view
+    ~read:t_of_c
+    ~write:c_of_t
     (ptr C.Size.size)
 
-type geometry = {
-  origin : origin;
-  size   : size;
-}
+    let zero = { w = 0; h = 0 }
 
-let geometry_of_c c_geo = {
-  origin = c_geo |-> C.Geometry.origin |> origin_of_c;
-  size = c_geo |-> C.Geometry.size |> size_of_c;
-}
+    let min a b = {
+      w = min a.w b.w;
+      h = min a.h b.h;
+    }
+    
+    let max a b = {
+      w = max a.w b.w;
+      h = max a.h b.h;
+    }
+  end
 
-let c_of_geometry geo =
-  let c_geo = make C.Geometry.geometry in
-  setf c_geo C.Geometry.origin (!@ (c_of_origin geo.origin));
-  setf c_geo C.Geometry.size (!@ (c_of_size geo.size));
-  addr c_geo
+  type t = {
+    origin : Origin.t;
+    size   : Size.t;
+  }
 
-let geometry : geometry typ = view
-    ~read:geometry_of_c
-    ~write:c_of_geometry
+  let t_of_c c_t = {
+    origin = c_t |-> C.Geometry.origin |> Origin.t_of_c;
+    size = c_t |-> C.Geometry.size |> Size.t_of_c;
+  }
+
+  let c_of_t t =
+    let c_t = make C.Geometry.geometry in
+    setf c_t C.Geometry.origin (!@ (Origin.c_of_t t.origin));
+    setf c_t C.Geometry.size (!@ (Size.c_of_t t.size));
+    addr c_t
+
+  let t : t typ = view
+    ~read:t_of_c
+    ~write:c_of_t
     (ptr C.Geometry.geometry)
 
-(* These reflect the definitions of geometry.h; however they are
-   defined directly in OCaml for simplicity.
+  let zero = { origin = Origin.zero; size = Size.zero }
 
-   Maybe this is a bad idea. Let's just hope these definitions do not
-   change often in wlc. *)
-let origin_zero = { x = 0; y = 0 }
-let size_zero = { w = 0; h = 0 }
-let geometry_zero = { origin = origin_zero; size = size_zero }
-
-let origin_min a b = {
-  x = min a.x b.x;
-  y = min a.y b.y;
-}
-let origin_max a b = {
-  x = max a.x b.x;
-  y = max a.y b.y;
-}
-
-let size_min a b = {
-  w = min a.w b.w;
-  h = min a.h b.h;
-}
-let size_max a b = {
-  w = max a.w b.w;
-  h = max a.h b.h;
-}
-
-let geometry_contains a b =
-  a.origin.x <= b.origin.x && a.origin.y <= b.origin.y &&
-  a.origin.x + a.size.w >= b.origin.x + b.size.w &&
-  a.origin.y + a.size.h >= b.origin.y + b.size.h
-
-            
-type modifiers = {
-  leds : led list;
-  mods : modifier list;
-}
-
-let modifiers_of_c c_mods = {
-  leds = getf (!@ c_mods) C.Modifiers.leds |> led_of_c;
-  mods = getf (!@ c_mods) C.Modifiers.mods |> modifier_of_c;
-}
-
-let c_of_modifiers mods =
-  let c_mods = make C.Modifiers.modifiers in
-  setf c_mods C.Modifiers.leds (c_of_led mods.leds);
-  setf c_mods C.Modifiers.mods (c_of_modifier mods.mods);
-  addr c_mods
-
-let modifiers : modifiers typ = view
-    ~read:modifiers_of_c
-    ~write:c_of_modifiers
-    (ptr C.Modifiers.modifiers)
+  let contains a b =
+    let open Origin in
+    let open Size in
+    a.origin.x <= b.origin.x && a.origin.y <= b.origin.y &&
+    a.origin.x + a.size.w >= b.origin.x + b.size.w &&
+    a.origin.y + a.size.h >= b.origin.y + b.size.h
+end
 
 type handle = unit ptr
 let handle = ptr void
@@ -335,10 +343,10 @@ module Output = struct
       (t @-> bool @-> returning void)
 
   let get_resolution = foreign ~from:wlc_lib "wlc_output_get_resolution"
-      (t @-> returning size)
+      (t @-> returning Geometry.Size.t)
 
   let set_resolution = foreign ~from:wlc_lib "wlc_output_set_resolution"
-      (t @-> size @-> returning void)
+      (t @-> Geometry.Size.t @-> returning void)
 
   let get_mask output =
     foreign ~from:wlc_lib "wlc_output_get_mask" (t @-> returning uint32_t)
@@ -351,13 +359,13 @@ module Output = struct
 
   let get_pixels output async =
     foreign ~from:wlc_lib "wlc_output_get_pixels"
-      (t @-> (funptr (size @-> ptr uint8_t @-> ptr void @-> returning bool))
+      (t @-> (funptr (Geometry.Size.t @-> ptr uint8_t @-> ptr void @-> returning bool))
          @-> ptr void
          @-> returning void)
       output
       (fun s buf _ ->
          let buf = coerce (ptr uint8_t) (ptr int) buf in
-         async (bigarray_of_ptr array2 (s.w, s.h) Bigarray.int8_unsigned buf);
+         async (bigarray_of_ptr array2 (s.Geometry.Size.w, s.Geometry.Size.h) Bigarray.int8_unsigned buf);
          true)
       null
 
@@ -525,10 +533,10 @@ module View = struct
       view (mask32_of_list m)
 
   let get_geometry = foreign ~from:wlc_lib "wlc_view_get_geometry"
-      (t @-> returning geometry)
+      (t @-> returning Geometry.t)
 
   let set_geometry = foreign ~from:wlc_lib "wlc_view_set_geometry"
-      (t @-> geometry @-> returning void)
+      (t @-> Geometry.t @-> returning void)
 
   let get_type = foreign ~from:wlc_lib "wlc_view_get_type"
       (t @-> returning typ)
@@ -593,7 +601,8 @@ module Interface = struct
       let focus = field output "focus"
           (funptr (Output.t @-> bool @-> returning void))
       let resolution = field output "resolution"
-          (funptr (Output.t @-> size @-> size @-> returning void))
+          (funptr (Output.t @-> Geometry.Size.t
+                   @-> Geometry.Size.t @-> returning void))
       let () = seal output
     end
 
@@ -602,7 +611,7 @@ module Interface = struct
         type request
         let request : request structure typ = structure "request"
         let geometry = field request "geometry"
-            (funptr (View.t @-> geometry @-> returning void))
+            (funptr (View.t @-> Geometry.t @-> returning void))
         let state = field request "state"
             (funptr (View.t @-> View.state_bit @-> bool
                      @-> returning void))
@@ -646,7 +655,7 @@ module Interface = struct
                    @-> ptr double @-> returning bool))
       let motion = field pointer "motion"
           (funptr (View.t @-> uint32_t
-                   @-> origin @-> returning bool))
+                   @-> Geometry.Origin.t @-> returning bool))
       let () = seal pointer
     end
 
@@ -656,7 +665,7 @@ module Interface = struct
       let touchf = field touch "touch"
           (funptr (View.t @-> uint32_t
                    @-> modifiers @-> touch_type
-                   @-> uint32_t @-> origin
+                   @-> uint32_t @-> Geometry.Origin.t
                    @-> returning bool))
       let () = seal touch
     end
@@ -683,7 +692,7 @@ module Interface = struct
     created    : Output.t -> bool;
     destroyed  : Output.t -> unit;
     focus      : Output.t -> bool -> unit;
-    resolution : Output.t -> size -> size -> unit;
+    resolution : Output.t -> Geometry.Size.t -> Geometry.Size.t -> unit;
   }
 
   let io_of_c c_io = {
@@ -707,7 +716,7 @@ module Interface = struct
       (ptr C.Interface_Output.output)
 
   type view_request = {
-    geometry : View.t -> geometry -> unit;
+    geometry : View.t -> Geometry.t -> unit;
     state    : View.t -> View.state_bit -> bool -> unit;
   }
 
@@ -795,7 +804,7 @@ module Interface = struct
       button_state -> bool;
     scroll : View.t option -> int -> modifiers -> scroll_axis_bit list ->
       float * float -> bool;
-    motion : View.t option -> int -> origin -> bool;
+    motion : View.t option -> int -> Geometry.Origin.t -> bool;
   }
 
   let ip_of_c c_ip =
@@ -841,7 +850,7 @@ module Interface = struct
 
   type touch = {
     touch : View.t option ->
-      int -> modifiers -> touch_type -> int -> origin -> bool;
+      int -> modifiers -> touch_type -> int -> Geometry.Origin.t -> bool;
   }
 
   let it_of_c c_it = {

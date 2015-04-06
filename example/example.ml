@@ -7,19 +7,20 @@ let get_topmost (output: Output.t) (offset: int): View.t option =
   else Some (List.nth views ((n - 1 + offset) mod n))
 
 let relayout (output: Output.t) =
+  let open Geometry in
   let r = Output.get_resolution output in
   let views = View.all_of_output output in
   let n = List.length views in
 
-  let w = r.w / 2 in
-  let h = r.h / (max ((1 + n) / 2) 1) in
+  let w = r.Size.w / 2 in
+  let h = r.Size.h / (max ((1 + n) / 2) 1) in
   List.fold_left (fun (toggle, i, y) view ->
     let g = {
-      origin = {
+      origin = Origin.{
         x = if toggle then w else 0;
         y;
       };
-      size = {
+      size = Size.{
         w = if not toggle && i = n - 1 then r.w else w;
         h;
       }

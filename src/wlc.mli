@@ -29,6 +29,11 @@ type led =
   | Led_Caps
   | Led_Scroll
 
+type modifiers = {
+  leds : led list;
+  mods : modifier list;
+}
+
 type key_state = Key_State_Released | Key_State_Pressed
 type button_state = Button_State_Released | Button_State_Pressed
 
@@ -41,38 +46,36 @@ type touch_type =
   | Touch_Frame
   | Touch_Cancel
 
-type origin = {
-  x : int;
-  y : int;
-}
+module Geometry : sig
+  module Origin : sig
+    type t = {
+      x : int;
+      y : int;
+    }
 
-type size = {
-  w : int;
-  h : int;
-}
+    val zero : t
+    val min : t -> t -> t
+    val max : t -> t -> t
+  end
 
-type geometry = {
-  origin : origin;
-  size   : size;
-}
+  module Size : sig
+    type t = {
+      w : int;
+      h : int;
+    }
 
+    val zero : t
+    val min : t -> t -> t
+    val max : t -> t -> t
+  end
 
-val origin_zero : origin
-val size_zero : size
-val geometry_zero : geometry
+  type t = {
+    origin : Origin.t;
+    size   : Size.t;
+  }
 
-val origin_min : origin -> origin -> origin
-val origin_max : origin -> origin -> origin
-
-val size_min : size -> size -> size
-val size_max : size -> size -> size
-
-val geometry_contains : geometry -> geometry -> bool
-
-type modifiers = {
-  leds : led list;
-  mods : modifier list;
-}
+  val contains : t -> t -> bool
+end
 
 module Output : sig
   type t
@@ -93,10 +96,10 @@ module Output : sig
   val set_sleep : t -> bool -> unit
 
   (** Get output resolution. *)
-  val get_resolution : t -> size
+  val get_resolution : t -> Geometry.Size.t
 
   (** Set output resolution. *)
-  val set_resolution : t -> size -> unit
+  val set_resolution : t -> Geometry.Size.t -> unit
 
   (** Get the list of currently visible spaces for this output.
 
@@ -184,10 +187,10 @@ module View : sig
   val set_mask : t -> int list -> unit
 
   (** Get the current geometry. *)
-  val get_geometry : t -> geometry
+  val get_geometry : t -> Geometry.t
 
   (** Set the geometry. *)
-  val set_geometry : t -> geometry -> unit
+  val set_geometry : t -> Geometry.t -> unit
 
   (** Get the type bitfield. *)
   val get_type : t -> typ
@@ -240,12 +243,12 @@ module Interface : sig
     (** An output was destroyed. *)
     focus      : Output.t -> bool -> unit;
     (** An output got or lost focus. *)
-    resolution : Output.t -> size -> size -> unit;
+    resolution : Output.t -> Geometry.Size.t -> Geometry.Size.t -> unit;
     (** An output resolution changed. *)
   }
 
   type view_request = {
-    geometry : View.t -> geometry -> unit;
+    geometry : View.t -> Geometry.t -> unit;
     (** Request to set a given geometry for a view. Apply using
         [Wlc.View.set_geometry] to agree. *)
     state    : View.t -> View.state_bit -> bool -> unit;
@@ -278,13 +281,13 @@ module Interface : sig
     scroll : View.t option ->
       int -> modifiers -> scroll_axis_bit list -> float * float -> bool;
     (** A scroll event was triggered, the first argument indicates the focused view. *)
-    motion : View.t option -> int -> origin -> bool;
+    motion : View.t option -> int -> Geometry.Origin.t -> bool;
     (** A motion event was triggered, the first argument indicates the focused view. *)
   }
 
   type touch = {
     touch : View.t option ->
-      int -> modifiers -> touch_type -> int -> origin -> bool;
+      int -> modifiers -> touch_type -> int -> Geometry.Origin.t -> bool;
     (** A touch event was tiggered, the first argument indicates the focused view. *)
   }
 
