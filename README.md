@@ -1,22 +1,27 @@
-OCaml-WLC
-=========
+# OCaml-Wlc
 
 Experimental OCaml binding for Wlc (http://github.com/Cloudef/wlc).
 
-Is it up-to-date?
------------------
+## How to build
 
-The hash of the WLC commit corresponding to the current state of the
+After installing [Wlc](http://github.com/Cloudef/wlc), run:
+
+```
+opam pin add wlc https://github.com/Armael/ocaml-wlc.git
+```
+
+## Is it up-to-date?
+
+The hash of the Wlc commit corresponding to the current state of the
 binding can be found in the file WLC_REV.
 
 If it's not the latest commit:
 
-- If WLC's API (include/wlc/*.h) has not changed in between,
+- If Wlc's API (include/wlc/*.h) has not changed in between,
   then it's probably fine;
-- If it changed, please ping me via github so I update it :-).
+- If it changed, please ping me via github so I update the bindings :-).
 
-Implementation details
-----------------------
+## Implementation details
 
 - *_user_data functions are not bound. It could be done, but
    there is no need to bloat the binding since we can have hashtables

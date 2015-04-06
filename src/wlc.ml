@@ -285,7 +285,7 @@ let geometry_contains a b =
   a.origin.x + a.size.w >= b.origin.x + b.size.w &&
   a.origin.y + a.size.h >= b.origin.y + b.size.h
 
-					  
+            
 type modifiers = {
   leds : led list;
   mods : modifier list;
@@ -317,20 +317,19 @@ module Output = struct
   let all () =
     let n_ptr = allocate size_t (Unsigned.Size_t.of_int 0) in
     let buf = foreign ~from:wlc_lib "wlc_get_outputs"
-		      (ptr size_t @-> returning (ptr t))
-		      n_ptr
+        (ptr size_t @-> returning (ptr t)) n_ptr
     in
     let a = CArray.from_ptr buf (!@ n_ptr |> Unsigned.Size_t.to_int) in
     CArray.to_list a
 
   let get_focused = foreign ~from:wlc_lib "wlc_get_focused_output"
-			    (void @-> returning t)
+      (void @-> returning t)
 
   let get_sleep = foreign ~from:wlc_lib "wlc_output_get_sleep"
-			  (t @-> returning bool)
+      (t @-> returning bool)
 
   let set_sleep = foreign ~from:wlc_lib "wlc_output_set_sleep"
-			  (t @-> bool @-> returning void)
+      (t @-> bool @-> returning void)
 
   let get_resolution = foreign ~from:wlc_lib "wlc_output_get_resolution"
       (t @-> returning size)
@@ -340,25 +339,28 @@ module Output = struct
 
   let get_mask output =
     foreign ~from:wlc_lib "wlc_output_get_mask" (t @-> returning uint32_t)
-	    output
+      output
     |> list_of_mask32
 
   let set_mask output m =
     foreign ~from:wlc_lib "wlc_output_set_mask" (t @-> uint32_t @-> returning void)
-	    output (mask32_of_list m)
+      output (mask32_of_list m)
 
   let get_pixels output async =
     foreign ~from:wlc_lib "wlc_output_get_pixels"
-      (t @-> (funptr (size @-> ptr uint8_t @-> ptr void @-> returning void))
-	 @-> ptr void
+      (t @-> (funptr (size @-> ptr uint8_t @-> ptr void @-> returning bool))
+         @-> ptr void
          @-> returning void)
       output
       (fun s buf _ ->
          let buf = coerce (ptr uint8_t) (ptr int) buf in
-         async (bigarray_of_ptr array2 (s.w, s.h) Bigarray.int8_unsigned buf))
+         async (bigarray_of_ptr array2 (s.w, s.h) Bigarray.int8_unsigned buf);
+         true)
       null
 
-  let focus = foreign ~from:wlc_lib "wlc_output_focus" (t @-> returning void)
+  let focus output =
+    foreign ~from:wlc_lib "wlc_output_focus" (t @-> returning void)
+      (handle_of_opt output)
 end
 
 module View = struct
@@ -466,9 +468,8 @@ module View = struct
   let all_of_output output =
     let n_ptr = allocate size_t (Unsigned.Size_t.of_int 0) in
     let buf = foreign ~from:wlc_lib "wlc_output_get_views"
-		      (Output.t @-> ptr size_t @-> returning (ptr t))
-		      output
-		      n_ptr
+        (Output.t @-> ptr size_t @-> returning (ptr t))
+        output n_ptr
     in
     let a = CArray.from_ptr buf (!@ n_ptr |> Unsigned.Size_t.to_int) in
     CArray.to_list a
@@ -477,24 +478,22 @@ module View = struct
     let n = List.length views |> Unsigned.Size_t.of_int in
     let buf = CArray.of_list t views |> CArray.start in
     foreign ~from:wlc_lib "wlc_output_set_views"
-	    (Output.t @-> (ptr t) @-> size_t @-> returning bool)
-	    output
-	    buf
-	    n
+      (Output.t @-> (ptr t) @-> size_t @-> returning bool)
+      output buf n
 
   let focus view =
     foreign ~from:wlc_lib "wlc_view_focus"
-	    (t @-> returning void)
-	    (handle_of_opt view)
+      (t @-> returning void)
+      (handle_of_opt view)
 
   let close = foreign ~from:wlc_lib "wlc_view_close"
       (t @-> returning void)
 
   let get_output = foreign ~from:wlc_lib "wlc_view_get_output"
-			   (t @-> returning Output.t)
+      (t @-> returning Output.t)
 
   let set_output = foreign ~from:wlc_lib "wlc_view_set_output"
-			   (t @-> Output.t @-> returning void)
+      (t @-> Output.t @-> returning void)
 
   let send_to_back = foreign ~from:wlc_lib "wlc_view_send_to_back"
       (t @-> returning void)
@@ -510,15 +509,14 @@ module View = struct
 
   let get_mask view =
     foreign ~from:wlc_lib "wlc_view_get_mask"
-	    (t @-> returning uint32_t)
-	    view 
+      (t @-> returning uint32_t)
+      view 
     |> list_of_mask32
 
   let set_mask view m =
     foreign ~from:wlc_lib "wlc_view_set_mask"
-	    (t @-> uint32_t @-> returning void)
-	    view
-	    (mask32_of_list m)
+      (t @-> uint32_t @-> returning void)
+      view (mask32_of_list m)
 
   let get_geometry = foreign ~from:wlc_lib "wlc_view_get_geometry"
       (t @-> returning geometry)
@@ -527,10 +525,10 @@ module View = struct
       (t @-> geometry @-> returning void)
 
   let get_type = foreign ~from:wlc_lib "wlc_view_get_type"
-			 (t @-> returning typ)
+      (t @-> returning typ)
 
   let set_type = foreign ~from:wlc_lib "wlc_view_set_type"
-			 (t @-> type_bit @-> bool @-> returning void)
+      (t @-> type_bit @-> bool @-> returning void)
 
   let get_state = foreign ~from:wlc_lib "wlc_view_get_state"
       (t @-> returning state)
@@ -547,26 +545,34 @@ module View = struct
   let set_parent view parent =
     foreign ~from:wlc_lib "wlc_view_set_parent"
       (t @-> t @-> returning void)
-      view
-      (handle_of_opt parent)
+      view (handle_of_opt parent)
 
   let get_title = foreign ~from:wlc_lib "wlc_view_get_title"
       (t @-> returning string)
 
-  let set_title = foreign ~from:wlc_lib "wlc_view_set_title"
-      (t @-> string @-> returning void)
+  let set_title view title =
+    foreign ~from:wlc_lib "wlc_view_set_title"
+      (t @-> string @-> returning bool)
+      view title
+    |> fun b -> if b then () else raise Failure
 
   let get_class = foreign ~from:wlc_lib "wlc_view_get_class"
       (t @-> returning string_opt)
 
-  let set_class = foreign ~from:wlc_lib "wlc_view_set_class"
-			  (t @-> string_opt @-> returning void)
-
+  let set_class view c =
+    foreign ~from:wlc_lib "wlc_view_set_class"
+      (t @-> string_opt @-> returning bool)
+      view c
+    |> fun b -> if b then () else raise Failure
+      
   let get_app_id = foreign ~from:wlc_lib "wlc_view_get_app_id"
-			   (t @-> returning string_opt)
+      (t @-> returning string_opt)
 
-  let set_app_id = foreign ~from:wlc_lib "wlc_view_set_app_id"
-			   (t @-> string_opt @-> returning bool)
+  let set_app_id view app_id =
+    foreign ~from:wlc_lib "wlc_view_set_app_id"
+      (t @-> string_opt @-> returning bool)
+      view app_id
+    |> fun b -> if b then () else raise Failure
 end
 
 module Interface = struct
@@ -604,9 +610,9 @@ module Interface = struct
       let destroyed = field view "destroyed"
           (funptr (View.t @-> returning void))
       let focus = field view "focus"
-			(funptr (View.t @-> bool @-> returning void))
+          (funptr (View.t @-> bool @-> returning void))
       let move_to_output = field view "move_to_output"
-				 (funptr (View.t @-> Output.t @-> Output.t @-> returning void))
+          (funptr (View.t @-> Output.t @-> Output.t @-> returning void))
       let request = field view "request" Request.request
       let () = seal view
     end
@@ -642,10 +648,10 @@ module Interface = struct
       type touch
       let touch : touch structure typ = structure "touch"
       let touchf = field touch "touch"
-			 (funptr (View.t @-> uint32_t
-				  @-> modifiers @-> touch_type
-				  @-> uint32_t @-> origin
-				  @-> returning bool))
+          (funptr (View.t @-> uint32_t
+                   @-> modifiers @-> touch_type
+                   @-> uint32_t @-> origin
+                   @-> returning bool))
       let () = seal touch
     end
 
@@ -713,7 +719,7 @@ module Interface = struct
     focus          : View.t -> bool -> unit;
     move_to_output : View.t -> Output.t -> Output.t -> unit;
 
-    request      : view_request;
+    request        : view_request;
   }
 
   let iv_of_c c_iv = {
@@ -739,7 +745,8 @@ module Interface = struct
       (ptr C.Interface_View.view)
 
   type keyboard = {
-    key : View.t option -> int -> modifiers -> int -> Keysym.t -> key_state -> bool;
+    key : View.t option ->
+      int -> modifiers -> int -> Keysym.t -> key_state -> bool;
   }
 
   let ik_of_c c_ik = {
@@ -819,7 +826,8 @@ module Interface = struct
       (ptr C.Interface_Pointer.pointer)
 
   type touch = {
-    touch : View.t option -> int -> modifiers -> touch_type -> int -> origin -> bool;
+    touch : View.t option ->
+      int -> modifiers -> touch_type -> int -> origin -> bool;
   }
 
   let it_of_c c_it = {
@@ -848,10 +856,10 @@ module Interface = struct
       (ptr C.Interface_Touch.touch)
 
   type t = {
+    output   : output;
     view     : view;
     keyboard : keyboard;
     pointer  : pointer;
-    output   : output;
     touch    : touch;
   }
 

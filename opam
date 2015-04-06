@@ -1,0 +1,28 @@
+opam-version: "1.2"
+name: "wlc"
+version: "dev"
+author: "Armael"
+maintainer: "Armael"
+build: [
+    ["./configure"
+        "--bindir" "%{bin}%"
+        "--docdir" "%{doc}%"
+    ]
+    [make]
+]
+install: [
+    [make "install"]
+]
+build-doc: [ make "doc" ]
+build-test: [ make "test" ]
+remove: [
+    ["ocamlfind" "remove" "wlc"]
+]
+depends: [
+    "ocamlfind" {build}
+    "ctypes" {build}
+    "ctypes-foreign" {build}
+]
+homepage: "http://github.com/Armael/ocaml-wlc/"
+dev-repo: "https://github.com/Armael/ocaml-wlc.git"
+bug-reports: "https://github.com/Armael/ocaml-wlc/issues"
