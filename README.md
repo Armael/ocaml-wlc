@@ -31,9 +31,9 @@ If it's not the latest commit:
    there is no need to bloat the binding since we can have hashtables
    {view/output/...} -> anything in OCaml.
 
-- some NULL pointers may not be handled (i.e. OCaml functions taking or
-  returning a `t` instead of a `option t`) probably causing a segfault in the
-  NULL case. Report it if it happens.
+- some zeroed handles may not be handled (i.e. OCaml functions taking or
+  returning a `t` instead of a `option t`) probably causing an error in
+  the zero case. Report it if it happens
 
 - I tried to order the various functions in submodules, causing some renamings
   for module dependencies reasons. Names of functions and variants is not
