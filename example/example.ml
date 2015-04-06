@@ -82,6 +82,8 @@ let pointer_button view time modifiers button state =
 let () =
   let open Interface in
   let interface = {
+    dummy with
+
     output = {
       created = output_created;
       destroyed = output_destroyed;
@@ -102,8 +104,6 @@ let () =
       dummy.pointer with
       button = pointer_button;
     };
-
-    touch = dummy.touch;
   } in
 
   Wlc.init interface;

@@ -655,6 +655,13 @@ module Interface = struct
       let () = seal touch
     end
 
+    module Interface_Compositor = struct
+      type compositor
+      let compositor : compositor structure typ = structure "compositor"
+      let ready = field compositor "ready" (funptr (void @-> returning void))
+      let () = seal compositor
+    end
+
     type interface
     let interface : interface structure typ = structure "wlc_interface"
     let output = field interface "output" Interface_Output.output
@@ -662,6 +669,7 @@ module Interface = struct
     let keyboard = field interface "keyboard" Interface_Keyboard.keyboard
     let pointer = field interface "pointer" Interface_Pointer.pointer
     let touch = field interface "touch" Interface_Touch.touch
+    let compositor = field interface "compositor" Interface_Compositor.compositor
     let () = seal interface
   end
 
@@ -855,12 +863,31 @@ module Interface = struct
       ~write:c_of_it
       (ptr C.Interface_Touch.touch)
 
+  type compositor = {
+    ready : unit -> unit;
+  }
+
+  let ic_of_c c_ic = {
+    ready = getf (!@ c_ic) C.Interface_Compositor.ready;
+  }
+
+  let c_of_ic ic =
+    let c_ic = make C.Interface_Compositor.compositor in
+    setf c_ic C.Interface_Compositor.ready ic.ready;
+    addr c_ic
+
+  let compositor : compositor typ = Ctypes.view
+      ~read:ic_of_c
+      ~write:c_of_ic
+      (ptr C.Interface_Compositor.compositor)
+
   type t = {
-    output   : output;
-    view     : view;
-    keyboard : keyboard;
-    pointer  : pointer;
-    touch    : touch;
+    output     : output;
+    view       : view;
+    keyboard   : keyboard;
+    pointer    : pointer;
+    touch      : touch;
+    compositor : compositor;
   }
 
   let t_of_c c_int = {
@@ -869,6 +896,7 @@ module Interface = struct
     keyboard = c_int |-> C.keyboard |> ik_of_c;
     pointer = c_int |-> C.pointer |> ip_of_c;
     touch = c_int |-> C.touch |> it_of_c;
+    compositor = c_int |-> C.compositor |> ic_of_c;
   }
 
   let c_of_t int =
@@ -878,6 +906,7 @@ module Interface = struct
     setf c_int C.keyboard (!@ (c_of_ik int.keyboard));
     setf c_int C.pointer (!@ (c_of_ip int.pointer));
     setf c_int C.touch (!@ (c_of_it int.touch));
+    setf c_int C.compositor (!@ (c_of_ic int.compositor));
     addr c_int
 
   let t : t typ = Ctypes.view
@@ -916,6 +945,10 @@ module Interface = struct
 
     touch = {
       touch = (fun _ _ _ _ _ _ -> true);
+    };
+
+    compositor = {
+      ready = (fun _ -> ());
     };
   }
 end

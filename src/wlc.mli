@@ -282,13 +282,19 @@ module Interface : sig
     (** A touch event was tiggered, the first argument indicates the focused view. *)
   }
 
+  type compositor = {
+    ready : unit -> unit;
+    (** The compositor is ready to accept clients. *)
+  }
+
   (** The toplevel interface record. *)
   type t = {
-    output   : output;
-    view     : view;
-    keyboard : keyboard;
-    pointer  : pointer;
-    touch    : touch;
+    output     : output;
+    view       : view;
+    keyboard   : keyboard;
+    pointer    : pointer;
+    touch      : touch;
+    compositor : compositor;
   }
 
   (** A dummy interface, where each handler does nothing. Useful for
