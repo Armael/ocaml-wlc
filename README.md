@@ -10,6 +10,10 @@ After installing [Wlc](http://github.com/Cloudef/wlc), run:
 opam pin add wlc https://github.com/Armael/ocaml-wlc.git
 ```
 
+## Example
+
+See `example/example.ml`.
+
 ## Is it up-to-date?
 
 The hash of the Wlc commit corresponding to the current state of the
