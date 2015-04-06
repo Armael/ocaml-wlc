@@ -39,3 +39,7 @@ configure:
 .PHONY: build doc test all install uninstall reinstall clean distclean configure
 
 # OASIS_STOP
+
+upload_docs: doc
+	git checkout gh-pages && rm -rf dev/* && cp _build/wlc_api.docdir/* dev && \
+	git add --all dev
